@@ -1,0 +1,30 @@
+# Odoo debe estar en la carpeta `odoo` para que funcione el Andamio
+odoo:
+  defaults:
+    # Esto usará clones superficiales de git. 
+    # $DEPTH_DEFAULT es 1 en prueba y producción, pero 100 en desarrollo. 
+    # $DEPTH_MERGE siempre es 100. 
+    # Puede usar cualquier valor entero, OTOH.
+    # Por ahora OCA es Base-Dued
+    depth: $DEPTH_MERGE
+  remotes:
+    origin: https://github.com/OCA/OCB.git
+    odoo: https://github.com/odoo/odoo.git
+    openupgrade: https://github.com/OCA/OpenUpgrade.git
+  # $ODOO_VERSION es... ¡La versión de Odoo! "11.0" o similar
+  target: origin $ODOO_VERSION
+  merges:
+    - origin $ODOO_VERSION
+    - odoo refs/pull/25594/head # Exponer `Field` de search_filters.js
+
+web:
+  defaults:
+    depth: $DEPTH_MERGE
+  remotes:
+    origin: https://github.com/OCA/web.git
+    tecnativa: https://github.com/Tecnativa/partner-contact.git
+  target: origin $ODOO_VERSION
+  merges:
+    - origin $ODOO_VERSION
+    - origin refs/pull/1007/head # busca web_responsive
+    - Dued 11.0-some_addon-custom # Branch solo para este cliente
